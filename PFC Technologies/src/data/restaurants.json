@@ -1,14 +1,160 @@
 [
-  { "name": "교대이층집", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=400" },
-  { "name": "명동교자 교대점", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1583032015879-e5022cb87c3b?w=400" },
-  { "name": "본죽 교대역점", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
-  { "name": "스시히로바 교대점", "category": "일식", "imageUrl": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400" },
-  { "name": "하남돼지집 교대점", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400" },
-  { "name": "교대 곱창골목", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1567533708067-5b3b34adaab5?w=400" },
-  { "name": "버거킹 교대역점", "category": "양식", "imageUrl": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" },
-  { "name": "마라탕후루 교대점", "category": "중식", "imageUrl": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400" },
-  { "name": "서브웨이 교대역점", "category": "양식", "imageUrl": "https://images.unsplash.com/photo-1509722747041-616f39b57569?w=400" },
-  { "name": "교대 감자탕", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1583224964978-2257b960c3f3?w=400" },
-  { "name": "이디야커피 교대점", "category": "카페", "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400" },
-  { "name": "교대 닭한마리", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1527477396000-e27163b4bbed?w=400" }
+  {
+    "id": 1,
+    "name": "서초면옥",
+    "category": "한식 / 냉면",
+    "menu": ["함흥냉면", "비빔냉면", "갈비찜", "만두", "갈비탕"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20251108_226%2F17625567812772AREk_PNG%2F%25C7%25D1%25BF%25EC%25B9%25F6%25BC%25B8%25B8%25B8%25B5%25CE%25C0%25FC%25B0%25F1.png"
+  },
+  {
+    "id": 2,
+    "name": "미나미 서초점",
+    "category": "일식 / 소바",
+    "menu": ["자루소바", "온소바", "텐동", "가케소바", "튀김모듬"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyNjAzMTZfMTU2%2FMDAxNzczNjM0NjIwODUz.LpA-YH6NBalvWQX5P2R651P-W-Ptd7jqQaeZ_S9URHog.oBHUq8xNHY_7S8YK-qGLXHBSKCJa-9dUqkxpqEnwNLsg.JPEG%2Fimage.jpg%3Ftype%3Dw1500_60_sharpen"
+  },
+  {
+    "id": 3,
+    "name": "교대곱창",
+    "category": "한식 / 곱창",
+    "menu": ["소곱창구이", "대창구이", "곱창전골", "볶음밥", "막창구이"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyNDA4MDlfMTkg%2FMDAxNzIzMjA4MTIwOTU3.TkzCZoTpcbnxbqHBIVg7nkvzklvEgehusKBzLRlo6LUg.jrHZigkTYfjiiD2yLph6T0XZJo079U1qpGcqDNgVpLIg.JPEG%2F1000022967.jpg.jpg%3Ftype%3Dw1500_60_sharpen"
+  },
+  {
+    "id": 4,
+    "name": "스시교",
+    "category": "일식 / 초밥",
+    "menu": ["모듬초밥", "연어초밥", "광어초밥", "우니초밥", "사시미"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyNjAzMTVfMTM1%2FMDAxNzczNTcyODkxNTU3.WIYrnRBcD3-2A9zb5bzlOFE3-5wm7E56FHZrTF8t01cg.dqfY-Mpl0mN68JP7bGhW67GuCJtVCzMsyAEzY7k0WfEg.JPEG%2F0B506AEC-9A5F-4DFD-8881-08B1691E8ABC.jpeg%3Ftype%3Dw1500_60_sharpen"
+  },
+  {
+    "id": 5,
+    "name": "육통령 교대직영점",
+    "category": "한식 / 고기구이",
+    "menu": ["한우등심", "한우갈비살", "한우차돌박이", "된장찌개", "냉면"],
+    "imageUrl": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA0MjlfMTIy%2FMDAxNjE5NjU2OTg2Mzc2.4nCWy8KhZWAbeHI6AxS2wVCr48CS1PDPdsT6L7PytiQg.Y7nQmPdMD0H8RlJe92E_JJpSPVNNtkXKzFkWPHF_S4Eg.JPEG.tinycare%2F20210421%25A3%25DF132725.jpg%23900x506"
+  },
+  {
+    "id": 6,
+    "name": "다피타",
+    "category": "양식 / 이탈리안",
+    "menu": [
+      "마르게리타피자",
+      "까르보나라",
+      "봉골레",
+      "티라미수",
+      "에스프레소"
+    ],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyNDAxMTVfNzQg%2FMDAxNzA1Mjc5OTcwNTIy.oLHx_LvBOHoSs00BLApQ4mxjPDMthJ5pI5-TYGZSSfIg.WDN9wP0zhADETPx3lz8kAwG0VNpeh38DPTfHybBs_ckg.JPEG%2F1923477A-D00A-476F-BF8E-B0CDF1025520.jpeg%3Ftype%3Dw1500_60_sharpen"
+  },
+  {
+    "id": 7,
+    "name": "텍사스 데 브라질",
+    "category": "양식 / 브라질BBQ",
+    "menu": ["슈하스코", "피카냐", "샐러드바", "치즈브레드", "카이피리냐"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20241023_15%2F1729668111981ORrvi_JPEG%2F01_TDBWeb_MeatGroupDetail_Lamb_Mingon-045_small.jpg"
+  },
+  {
+    "id": 8,
+    "name": "로리스 더 프라임 립",
+    "category": "양식 / 스테이크",
+    "menu": [
+      "프라임립",
+      "크림드스피나치",
+      "매쉬드포테이토",
+      "요크셔푸딩",
+      "와인"
+    ],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyNTA2MjVfODkg%2FMDAxNzUwODEwODUzOTQ5.Grtoukpwhdbc9ya841qucTKuuwsk_M-2qjM_CSJiXEQg.Vc6GJqz_2G5qeZNltDN2lVILjSzskPRrSo_XVICzG2Mg.JPEG%2FE6735697-C0C5-4DDA-890F-4E0C0112338E.jpeg%3Ftype%3Dw1500_60_sharpen"
+  },
+  {
+    "id": 9,
+    "name": "도스타코스 교대점",
+    "category": "양식 / 멕시칸",
+    "menu": ["타코", "부리토", "엔칠라다", "퀘사디아", "나초"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fblogfiles.pstatic.net%2FMjAyNTA3MDdfMjg5%2FMDAxNzUxODQzNTA4NjAy.wJGjk2Dr4kAwYFdGCvwDaSRuSKpdffOhOcXnqHv_PCYg.EcCcn6o8utapziiorHL0mJSmZn1ezJumuOnDWSmxeW0g.JPEG%2FIMG%EF%BC%BF5748.jpg%2F900x1200"
+  },
+  {
+    "id": 10,
+    "name": "딘타이펑 서초점",
+    "category": "중식 / 딤섬",
+    "menu": ["샤오롱바오", "새우완탕", "볶음밥", "슈마이", "탕수육"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20150901_257%2F14410536311386UNK8_JPEG%2F166761513551604_0.jpg"
+  },
+  {
+    "id": 11,
+    "name": "꾼솜차이",
+    "category": "아시안 / 태국",
+    "menu": [
+      "크랩커리",
+      "코코넛라이스",
+      "팟타이",
+      "똠양꿍",
+      "망고스티키라이스"
+    ],
+    "imageUrl": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNjAxMjBfMzYg%2FMDAxNzY4ODkzMDA4MTQ5.HDpRq714ellt49Fv7ITkh2m6VkXNgnnglspit4R7xcog.Ll2jXd-tcgfhZU96ekUGggI3CYZCP0MYwDikwDESZNcg.JPEG%2FKakaoTalk_20260119_131935869_01.jpg"
+  },
+  {
+    "id": 12,
+    "name": "하남돼지집 교대점",
+    "category": "한식 / 삼겹살",
+    "menu": ["삼겹살", "목살", "항정살", "된장찌개", "냉면"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240902_221%2F17252418019475tjre_JPEG%2F%25C5%25A9%25B1%25E2%25BA%25AF%25C8%25AFKakaoTalk_20240408_134343834_04.jpg"
+  },
+  {
+    "id": 13,
+    "name": "홍콩반점 교대역점",
+    "category": "중식 / 중화요리",
+    "menu": ["짜장면", "짬뽕", "탕수육", "볶음밥", "마파두부"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyNTA4MzFfODUg%2FMDAxNzU2NjIwMTcxNzg4.RsIGc6BJXeqLymzqTWDpeK9ASwCx0MIzaxm1u0qCi7Ug.KjkdEnDWWO14Cp2Midix9odmU3vPId9iDPWc7bJMMDUg.JPEG%2F9D80CED6-8B75-496F-A8C7-D00FB696DB42.jpeg%3Ftype%3Dw1500_60_sharpen"
+  },
+  {
+    "id": 14,
+    "name": "서초동 돈까스",
+    "category": "일식 / 돈까스",
+    "menu": ["로스까스", "히레까스", "치즈까스", "새우까스", "카레"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250329_110%2F1743230629460XWjME_JPEG%2F4.%25B5%25A5%25B9%25CC%25B1%25D7%25B6%25F3%25BD%25BA%25C4%25AB%25C3%25F7.jpg"
+  },
+  {
+    "id": 15,
+    "name": "교대 닭한마리",
+    "category": "한식 / 닭한마리",
+    "menu": ["닭한마리", "칼국수사리", "떡사리", "감자", "부추무침"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyNTAyMTNfMzIg%2FMDAxNzM5NDU2MjkyNTM0.lUvKp3hYUEKvsEBrybxJ3Jilqt5k66oHO6HP5R2PMY0g.uG6SJMx-PT4VcSm3sm801oKav1xjaAkwHhCXky43Txsg.JPEG%2F1000005878.jpg.jpg%3Ftype%3Dw1500_60_sharpen"
+  },
+  {
+    "id": 16,
+    "name": "서초동 쌀국수",
+    "category": "아시안 / 베트남",
+    "menu": ["쌀국수", "분짜", "반미", "월남쌈", "스프링롤"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250804_120%2F1754298500548WgSLI_JPEG%2F%25BE%25E7%25B0%25F6%25C3%25A2%25B8%25C5%25BF%25EE%25B8%25C0.jpg"
+  },
+  {
+    "id": 17,
+    "name": "교대 라멘집",
+    "category": "일식 / 라멘",
+    "menu": ["돈코츠라멘", "미소라멘", "쇼유라멘", "차슈덮밥", "교자"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220928_186%2F1664340371736KwElQ_JPEG%2F%25BE%25F3%25C5%25AB%25C5%25BA%25C5%25BA%25B8%25E0_%25BA%25F1%25C0%25B2%25BC%25F6%25C1%25A4%25BA%25BB.jpg"
+  },
+  {
+    "id": 18,
+    "name": "교대 삼계탕",
+    "category": "한식 / 삼계탕",
+    "menu": ["삼계탕", "한방삼계탕", "전복삼계탕", "녹두삼계탕", "인삼주"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyNTA3MTdfNDAg%2FMDAxNzUyNzI5MDA1NDI1.YbBdiFFhgdMmKqyL0hmje_MIrAtBYd1bArk5i0ulAPgg.9nSMqm2DrX77mdwSNBTzTln484E5IzXLJzz0VoYy_kog.JPEG%2F828308C3-3FF9-401E-9705-93BEBC9F9725.jpeg%3Ftype%3Dw1500_60_sharpen"
+  },
+  {
+    "id": 19,
+    "name": "교대 비빔밥",
+    "category": "한식 / 비빔밥",
+    "menu": ["전주비빔밥", "돌솥비빔밥", "육회비빔밥", "된장찌개", "김치"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240610_220%2F1718014967389yLazq_JPEG%2FIMG_8463.jpeg"
+  },
+  {
+    "id": 20,
+    "name": "교대 수제버거",
+    "category": "양식 / 버거",
+    "menu": ["클래식버거", "치즈버거", "베이컨버거", "감자튀김", "콜라"],
+    "imageUrl": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250415_297%2F1744708122129npJcQ_JPEG%2F%25C5%25A9%25B1%25E2%25BA%25AF%25C8%25AFKakaoTalk_20250205_185249194.jpg"
+  }
 ]

@@ -1,77 +1,82 @@
-import { useState } from 'react'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { Heart, X, RotateCcw } from 'lucide-react'
-import SwipeCard from '../components/SwipeCard'
-import type { Restaurant } from '../components/SwipeCard'
-import data from '../data/restaurants.json'
+import { useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Heart, X, RotateCcw } from "lucide-react";
+import SwipeCard from "../components/SwipeCard";
+import type { Restaurant } from "../components/SwipeCard";
+import data from "../data/restaurants.json";
 
-declare module '@tanstack/history' {
+declare module "@tanstack/history" {
   interface HistoryState {
-    restaurant?: Restaurant
+    restaurant?: Restaurant;
   }
 }
 
-export const Route = createFileRoute('/swipe')({ component: Swipe })
+export const Route = createFileRoute("/swipe")({ component: Swipe });
 
 function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr]
+  const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
-  return a
+  return a;
 }
 
 function Swipe() {
-  const navigate = useNavigate()
-  const [deck, setDeck] = useState(() => shuffle(data as Restaurant[]))
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [liked, setLiked] = useState<Restaurant[]>([])
-  const [empty, setEmpty] = useState(false)
+  const navigate = useNavigate();
+  const [deck, setDeck] = useState(() => shuffle(data as Restaurant[]));
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [liked, setLiked] = useState<Restaurant[]>([]);
+  const [empty, setEmpty] = useState(false);
 
-  const current = deck[currentIndex]
-  const remaining = liked.length + (deck.length - currentIndex)
+  const current = deck[currentIndex];
+  const remaining = deck.length - currentIndex;
 
-  function handleSwipe(direction: 'left' | 'right') {
-    const newLiked = direction === 'right' ? [...liked, deck[currentIndex]] : liked
-    const newIndex = currentIndex + 1
-    const rem = newLiked.length + (deck.length - newIndex)
+  function handleSwipe(direction: "left" | "right") {
+    const newLiked =
+      direction === "right" ? [...liked, deck[currentIndex]] : liked;
+    const newIndex = currentIndex + 1;
+    const rem = deck.length - newIndex;
 
     if (rem === 1) {
-      const winner = newLiked.length === 1 ? newLiked[0] : deck[newIndex]
-      navigate({ to: '/result', state: { restaurant: winner } })
-      return
+      const winner = newLiked.length === 1 ? newLiked[0] : deck[newIndex];
+      navigate({ to: "/result", state: { restaurant: winner } });
+      return;
     }
 
     if (rem === 0) {
-      setEmpty(true)
-      return
+      setEmpty(true);
+      return;
     }
 
     if (newIndex >= deck.length && newLiked.length > 1) {
-      setDeck(shuffle(newLiked))
-      setCurrentIndex(0)
-      setLiked([])
-      return
+      setDeck(shuffle(newLiked));
+      setCurrentIndex(0);
+      setLiked([]);
+      return;
     }
 
-    setCurrentIndex(newIndex)
-    setLiked(newLiked)
+    setCurrentIndex(newIndex);
+    setLiked(newLiked);
   }
 
   function restart() {
-    setDeck(shuffle(data as Restaurant[]))
-    setCurrentIndex(0)
-    setLiked([])
-    setEmpty(false)
+    setDeck(shuffle(data as Restaurant[]));
+    setCurrentIndex(0);
+    setLiked([]);
+    setEmpty(false);
   }
 
   if (empty) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center px-4 py-12 text-center">
         <RotateCcw className="mb-4 h-12 w-12 text-[var(--sea-ink-soft)]" />
-        <p className="mb-2 text-lg font-semibold text-[var(--sea-ink)]">추천할 식당이 없습니다</p>
-        <p className="mb-6 text-sm text-[var(--sea-ink-soft)]">다시 시도해주세요</p>
+        <p className="mb-2 text-lg font-semibold text-[var(--sea-ink)]">
+          추천할 식당이 없습니다
+        </p>
+        <p className="mb-6 text-sm text-[var(--sea-ink-soft)]">
+          다시 시도해주세요
+        </p>
         <button
           onClick={restart}
           className="cursor-pointer rounded-full bg-[var(--lagoon-deep)] px-8 py-3 text-sm font-semibold text-white"
@@ -79,12 +84,14 @@ function Swipe() {
           다시 시작하기
         </button>
       </div>
-    )
+    );
   }
 
   return (
     <div className="flex flex-1 flex-col px-4 py-4">
-      <p className="mb-3 text-center text-sm text-[var(--sea-ink-soft)]">{remaining}곳 남음</p>
+      <p className="mb-3 text-center text-sm text-[var(--sea-ink-soft)]">
+        {remaining}곳 남음
+      </p>
 
       {current && (
         <SwipeCard
@@ -96,14 +103,14 @@ function Swipe() {
 
       <div className="flex justify-center gap-6 py-6">
         <button
-          onClick={() => handleSwipe('left')}
+          onClick={() => handleSwipe("left")}
           aria-label="패스"
           className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-2 border-red-300 text-red-500 transition-colors hover:bg-red-50"
         >
           <X className="h-7 w-7" />
         </button>
         <button
-          onClick={() => handleSwipe('right')}
+          onClick={() => handleSwipe("right")}
           aria-label="좋아요"
           className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-2 border-green-300 text-green-500 transition-colors hover:bg-green-50"
         >
@@ -111,5 +118,5 @@ function Swipe() {
         </button>
       </div>
     </div>
-  )
+  );
 }

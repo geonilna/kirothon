@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { useSwipeGesture } from '../hooks/useSwipeGesture'
 
 export interface Restaurant {
+  id: number
   name: string
   category: string
+  menu: string[]
   imageUrl: string
 }
 
@@ -56,6 +58,7 @@ export default function SwipeCard({ restaurant, onSwipe }: SwipeCardProps) {
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5 pt-16">
           <p className="text-xl font-bold text-white">{restaurant.name}</p>
           <p className="text-sm text-white/80">{restaurant.category}</p>
+          <p className="mt-1 text-xs text-white/60">{restaurant.menu.slice(0, 3).join(' · ')}</p>
         </div>
 
         {/* LIKE hint */}

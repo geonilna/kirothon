@@ -40,6 +40,16 @@ function Result() {
       <p className="mb-8 text-sm text-[var(--sea-ink-soft)]">
         {restaurant.category}
       </p>
+      <div className="mb-8 flex flex-wrap justify-center gap-2">
+        {restaurant.menu.map((item) => (
+          <span
+            key={item}
+            className="rounded-full bg-[var(--chip-bg)] px-3 py-1 text-xs text-[var(--sea-ink-soft)]"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
       <button
         onClick={() => navigate({ to: '/' })}
         className="flex cursor-pointer items-center gap-2 rounded-full bg-[var(--lagoon-deep)] px-8 py-3 text-sm font-semibold text-white"
