@@ -26,44 +26,29 @@ function Swipe() {
   const navigate = useNavigate();
   const [deck, setDeck] = useState(() => shuffle(data as Restaurant[]));
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [liked, setLiked] = useState<Restaurant[]>([]);
   const [empty, setEmpty] = useState(false);
 
   const current = deck[currentIndex];
   const remaining = deck.length - currentIndex;
 
   function handleSwipe(direction: "left" | "right") {
-    const newLiked =
-      direction === "right" ? [...liked, deck[currentIndex]] : liked;
-    const newIndex = currentIndex + 1;
-    const rem = deck.length - newIndex;
-
-    if (rem === 1) {
-      const winner = newLiked.length === 1 ? newLiked[0] : deck[newIndex];
-      navigate({ to: "/result", state: { restaurant: winner } });
+    if (direction === "right") {
+      navigate({ to: "/result", state: { restaurant: deck[currentIndex] } });
       return;
     }
 
-    if (rem === 0) {
+    const newIndex = currentIndex + 1;
+    if (newIndex >= deck.length) {
       setEmpty(true);
       return;
     }
 
-    if (newIndex >= deck.length && newLiked.length > 1) {
-      setDeck(shuffle(newLiked));
-      setCurrentIndex(0);
-      setLiked([]);
-      return;
-    }
-
     setCurrentIndex(newIndex);
-    setLiked(newLiked);
   }
 
   function restart() {
     setDeck(shuffle(data as Restaurant[]));
     setCurrentIndex(0);
-    setLiked([]);
     setEmpty(false);
   }
 
