@@ -1,0 +1,14 @@
+[
+  { "name": "교대이층집", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=400" },
+  { "name": "명동교자 교대점", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1583032015879-e5022cb87c3b?w=400" },
+  { "name": "본죽 교대역점", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400" },
+  { "name": "스시히로바 교대점", "category": "일식", "imageUrl": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400" },
+  { "name": "하남돼지집 교대점", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400" },
+  { "name": "교대 곱창골목", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1567533708067-5b3b34adaab5?w=400" },
+  { "name": "버거킹 교대역점", "category": "양식", "imageUrl": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" },
+  { "name": "마라탕후루 교대점", "category": "중식", "imageUrl": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400" },
+  { "name": "서브웨이 교대역점", "category": "양식", "imageUrl": "https://images.unsplash.com/photo-1509722747041-616f39b57569?w=400" },
+  { "name": "교대 감자탕", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1583224964978-2257b960c3f3?w=400" },
+  { "name": "이디야커피 교대점", "category": "카페", "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400" },
+  { "name": "교대 닭한마리", "category": "한식", "imageUrl": "https://images.unsplash.com/photo-1527477396000-e27163b4bbed?w=400" }
+]
