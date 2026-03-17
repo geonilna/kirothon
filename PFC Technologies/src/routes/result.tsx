@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { createFileRoute, useLocation, useNavigate } from '@tanstack/react-router'
 import { RotateCcw } from 'lucide-react'
+import confetti from 'canvas-confetti'
 import type { Restaurant } from '../components/SwipeCard'
 
 export const Route = createFileRoute('/result')({ component: Result })
@@ -11,7 +12,8 @@ function Result() {
   const restaurant = (state as { restaurant?: Restaurant }).restaurant
 
   useEffect(() => {
-    if (!restaurant) navigate({ to: '/' })
+    if (!restaurant) { navigate({ to: '/' }); return }
+    confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } })
   }, [restaurant, navigate])
 
   if (!restaurant) return null
