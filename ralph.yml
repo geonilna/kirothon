@@ -6,7 +6,7 @@ cli:
 
 event_loop:
   completion_promise: "LOOP_COMPLETE"
-  starting_event: "task.start"
+  starting_event: "work.start"
   max_iterations: 50
   max_runtime_seconds: 7200
   checkpoint_interval: 3
@@ -25,7 +25,8 @@ core:
 hats:
   planner:
     name: "Planner"
-    triggers: ["task.start", "review.changes_requested"]
+    description: "PRD와 이슈 파일을 분석하여 파일 단위 구현 계획을 수립한다"
+    triggers: ["work.start", "review.changes_requested"]
     publishes: ["plan.ready"]
     instructions: |
       PRD(PFC Technologies/PRD.md)와 이슈 파일(PFC Technologies/issues/)을 읽고 구현 계획을 세운다.
@@ -39,6 +40,7 @@ hats:
 
   builder:
     name: "Builder"
+    description: "Planner의 계획에 따라 최소한의 코드를 구현한다"
     triggers: ["plan.ready"]
     publishes: ["build.done", "build.blocked"]
     instructions: |
@@ -56,6 +58,7 @@ hats:
 
   reviewer:
     name: "Reviewer"
+    description: "이슈의 acceptance criteria 기준으로 구현을 검증한다"
     triggers: ["build.done"]
     publishes: ["review.approved", "review.changes_requested"]
     instructions: |
