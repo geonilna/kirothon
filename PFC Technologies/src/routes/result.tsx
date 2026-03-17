@@ -1,25 +1,32 @@
-import { useEffect, useCallback } from 'react'
-import { createFileRoute, useLocation, useNavigate } from '@tanstack/react-router'
-import { RotateCcw } from 'lucide-react'
-import confetti from 'canvas-confetti'
-import type { Restaurant } from '../components/SwipeCard'
+import { useEffect, useCallback } from "react";
+import {
+  createFileRoute,
+  useLocation,
+  useNavigate,
+} from "@tanstack/react-router";
+import { RotateCcw } from "lucide-react";
+import confetti from "canvas-confetti";
+import type { Restaurant } from "../components/SwipeCard";
 
-export const Route = createFileRoute('/result')({ component: Result })
+export const Route = createFileRoute("/result")({ component: Result });
 
 function Result() {
-  const { state } = useLocation()
-  const navigate = useNavigate()
-  const restaurant = (state as { restaurant?: Restaurant }).restaurant
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const restaurant = (state as { restaurant?: Restaurant }).restaurant;
 
   useEffect(() => {
-    if (!restaurant) { navigate({ to: '/' }); return }
-  }, [restaurant, navigate])
+    if (!restaurant) {
+      navigate({ to: "/" });
+      return;
+    }
+  }, [restaurant, navigate]);
 
   const fireConfetti = useCallback(() => {
-    confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } })
-  }, [])
+    confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+  }, []);
 
-  if (!restaurant) return null
+  if (!restaurant) return null;
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-4 py-12">
@@ -27,13 +34,12 @@ function Result() {
         src={restaurant.imageUrl}
         alt={restaurant.name}
         draggable={false}
-        onLoad={() => setTimeout(fireConfetti, 500)}
+        onLoad={fireConfetti}
         onError={(e) => {
-          e.currentTarget.style.display = 'none'
+          e.currentTarget.style.display = "none";
           e.currentTarget.parentElement
-            ?.querySelector<HTMLDivElement>('[data-fallback]')
-            ?.classList.remove('hidden')
-          setTimeout(fireConfetti, 500)
+            ?.querySelector<HTMLDivElement>("[data-fallback]")
+            ?.classList.remove("hidden");
         }}
         className="mb-6 aspect-[3/4] w-full max-w-xs rounded-2xl object-cover"
       />
@@ -58,12 +64,12 @@ function Result() {
         ))}
       </div>
       <button
-        onClick={() => navigate({ to: '/' })}
+        onClick={() => navigate({ to: "/" })}
         className="flex cursor-pointer items-center gap-2 rounded-full bg-[var(--lagoon-deep)] px-8 py-3 text-sm font-semibold text-white"
       >
         <RotateCcw className="h-4 w-4" />
         다시 추천받기
       </button>
     </div>
-  )
+  );
 }
