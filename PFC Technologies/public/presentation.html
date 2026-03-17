@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘뭐먹 - UNICORN DAY 2026 | PFC Technologies</title>
+  <style>
+    :root {
+      --bg-primary: #0f0f1a;
+      --bg-slide: #16213e;
+      --text-primary: #eaeaea;
+      --text-secondary: #a0a0b0;
+      --accent-color: #ff6b35;
+      --accent-secondary: #ffd166;
+      --accent-kiro: #00d4ff;
+      --font-title: 42px;
+      --font-subtitle: 28px;
+      --font-body: 20px;
+      --font-small: 16px;
+      --transition-duration: 0.4s;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; overflow: hidden; cursor: pointer; user-select: none;
+    }
+    .slide-deck {
+      position: relative;
+      width: min(90vw, calc(90vh * 16 / 9));
+      aspect-ratio: 16 / 9;
+      overflow: hidden; border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .slide {
+      position: absolute; inset: 0; background: var(--bg-slide);
+      padding: 60px 80px; display: flex; flex-direction: column;
+      opacity: 0; transition: opacity var(--transition-duration) ease;
+      pointer-events: none;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; }
+    .slide-title { font-size: var(--font-title); font-weight: 700; margin-bottom: 36px; }
+    .slide-title .accent { color: var(--accent-color); }
+    .slide-title .accent-kiro { color: var(--accent-kiro); }
+    .slide-number { position: absolute; bottom: 24px; right: 40px; font-size: var(--font-small); color: var(--text-secondary); }
+    .team-badge { position: absolute; top: 24px; right: 40px; font-size: 13px; color: var(--text-secondary); opacity: 0.6; }
+    .hl { color: var(--accent-color); font-weight: 700; }
+</style>
+<style>
+    /* story beats */
+    .problem-story, .insight-story { display: flex; flex-direction: column; gap: 16px; }
+    .story-beat { display: flex; align-items: center; gap: 20px; padding: 14px 20px; background: rgba(255,255,255,0.02); border-radius: 10px; }
+    .story-beat .beat-icon { font-size: 28px; min-width: 40px; text-align: center; }
+    .story-beat .beat-text { font-size: 18px; color: var(--text-secondary); line-height: 1.6; }
+    .story-beat .beat-text strong { color: var(--text-primary); }
+
+    /* limit cards (slide 2) */
+    .limit-content { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+    .limit-card { display: flex; align-items: flex-start; gap: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 22px 28px; }
+    .limit-icon { font-size: 32px; min-width: 44px; text-align: center; padding-top: 2px; }
+    .limit-text h3 { font-size: 18px; color: var(--text-primary); margin-bottom: 6px; }
+    .limit-text p { font-size: 16px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* scholar + paradox (slide 3) */
+    .paradox-layout { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+    .scholar-row { display: flex; gap: 20px; align-items: stretch; }
+    .scholar-card { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px 18px; min-width: 280px; }
+    .scholar-photo { width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; object-fit: cover; }
+    .scholar-name { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+    .scholar-title { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+    .concept-quote { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+    .concept-badge { background: rgba(255,107,53,0.15); border: 1px solid rgba(255,107,53,0.3); border-radius: 8px; padding: 6px 16px; font-size: 14px; color: var(--accent-color); font-weight: 600; width: fit-content; }
+    .concept-desc { font-size: var(--font-body); color: var(--text-secondary); line-height: 1.6; }
+    .common-problem { background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.2); border-radius: 12px; padding: 20px 28px; text-align: center; font-size: 22px; }
+    .common-problem .accent { color: var(--accent-color); font-weight: 700; }
+
+    /* before/after (slide 4) */
+    .before-after { display: flex; gap: 20px; }
+    .ba-box { flex: 1; border-radius: 12px; padding: 20px 24px; text-align: center; }
+    .ba-box.before { background: rgba(255,71,87,0.08); border: 1px solid rgba(255,71,87,0.2); }
+    .ba-box.after { background: rgba(46,213,115,0.08); border: 1px solid rgba(46,213,115,0.2); }
+    .ba-label { font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
+    .ba-box.before .ba-label { color: #ff4757; }
+    .ba-box.after .ba-label { color: #2ed573; }
+    .ba-content { font-size: 17px; line-height: 1.6; color: var(--text-secondary); }
+    .ba-emoji { font-size: 28px; margin-bottom: 8px; }
+
+    /* features grid */
+    .features-grid { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-content: center; }
+    .feature-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px; transition: border-color 0.3s; }
+    .feature-card:hover { border-color: var(--accent-color); }
+    .feature-card .feat-icon { font-size: 32px; margin-bottom: 12px; }
+    .feature-card h3 { font-size: var(--font-body); color: var(--accent-secondary); margin-bottom: 8px; }
+    .feature-card p { font-size: var(--font-small); color: var(--text-secondary); line-height: 1.6; }
+
+    /* demo */
+    .demo-center { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px; }
+    .demo-phone { width: 280px; height: 480px; background: #1a1a2e; border: 3px solid rgba(255,255,255,0.15); border-radius: 36px; padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+    .demo-phone::before { content: ''; position: absolute; top: 12px; width: 60px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; }
+    .demo-phone .food-emoji { font-size: 80px; margin-bottom: 16px; }
+    .demo-phone .food-name { font-size: 20px; font-weight: 600; }
+    .demo-phone .swipe-hint { font-size: 14px; color: var(--accent-color); margin-top: 12px; }
+    .demo-phone .swipe-arrows { display: flex; justify-content: space-between; width: 180px; margin-top: 16px; font-size: 22px; }
+    .swipe-no { color: #ff4757; } .swipe-yes { color: #2ed573; }
+    .demo-caption { font-size: var(--font-small); color: var(--text-secondary); text-align: center; }
+
+    /* kiro */
+    .kiro-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .kiro-logo { background: linear-gradient(135deg, var(--accent-kiro), #7b2ff7); padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: var(--font-body); }
+    .kiro-cards { flex: 1; display: flex; gap: 20px; align-items: stretch; margin-bottom: 24px; }
+    .kiro-card { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; }
+    .kiro-card .card-icon { font-size: 28px; margin-bottom: 10px; }
+    .kiro-card h3 { font-size: 18px; margin-bottom: 8px; color: var(--accent-kiro); }
+    .kiro-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .kiro-card .card-tag { margin-top: auto; padding-top: 12px; font-size: 12px; color: var(--accent-kiro); opacity: 0.7; }
+    .kiro-benefit { background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(123,47,247,0.1)); border: 1px solid rgba(0,212,255,0.2); border-radius: 12px; padding: 18px 28px; text-align: center; font-size: var(--font-body); line-height: 1.6; }
+    .kiro-benefit .accent { color: var(--accent-kiro); font-weight: 700; }
+
+    .nav-hint { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: 13px; color: rgba(255,255,255,0.25); pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div class="slide-deck">
+
+    <!-- 1: 문제 제기 -->
+    <section class="slide active" data-slide="0">
+      <span class="team-badge">PFC Technologies &middot; UNICORN DAY 2026</span>
+      <h1 class="slide-title">&#127861; <span class="accent">오늘 점심, 뭐 먹지?</span></h1>
+      <div class="problem-story" style="flex:1; justify-content:center;">
+        <div class="story-beat">
+          <span class="beat-icon">&#128347;</span>
+          <span class="beat-text">점심시간 10분 전. 슬랙에 올라온 <strong>"점심 뭐 먹을까요?"</strong></span>
+        </div>
+        <div class="story-beat">
+          <span class="beat-icon">&#128565;</span>
+          <span class="beat-text">한식, 중식, 일식, 양식, 분식&hellip; 선택지가 늘어날수록 <span class="hl">아무도 결정 못 한다</span></span>
+        </div>
+      </div>
+      <div class="slide-number">1 / 7</div>
+    </section>
+
+    <!-- 2: 기존 해결책의 한계 -->
+    <section class="slide" data-slide="1">
+      <span class="team-badge">PFC Technologies &middot; UNICORN DAY 2026</span>
+      <h1 class="slide-title">&#128241; 기존 점메추 앱, <span class="accent">왜 안 될까?</span></h1>
+      <div class="limit-content">
+        <div class="limit-card">
+          <div class="limit-icon">&#128203;</div>
+          <div class="limit-text">
+            <h3>목록 나열 방식</h3>
+            <p>"한식, 중식, 일식, 양식&hellip;" 카테고리를 보여주고 고르라고 한다.<br/>결국 <span class="hl">선택지만 옮겨놓은 것</span>. 고민은 그대로.</p>
+          </div>
+        </div>
+        <div class="limit-card">
+          <div class="limit-icon">&#127922;</div>
+          <div class="limit-text">
+            <h3>랜덤 추천 방식</h3>
+            <p>룰렛 돌려서 하나 나오면? <span class="hl">"이건 아닌데&hellip;"</span> 하고 다시 돌린다.<br/>내 취향이 반영되지 않으니까.</p>
+          </div>
+        </div>
+        <div class="limit-card">
+          <div class="limit-icon">&#128269;</div>
+          <div class="limit-text">
+            <h3>검색 기반 방식</h3>
+            <p>맛집 앱에서 검색하면 수십 개 결과가 쏟아진다.<br/><span class="hl">정보 과부하</span>로 오히려 더 못 고른다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-number">2 / 7</div>
+    </section>
+
+    <!-- 3: 선택의 역설 + 공통 문제 -->
+    <section class="slide" data-slide="2">
+      <span class="team-badge">PFC Technologies &middot; UNICORN DAY 2026</span>
+      <h1 class="slide-title">&#128214; <span class="accent">왜 이런 일이 벌어질까?</span></h1>
+      <div class="paradox-layout">
+        <div class="scholar-row">
+          <div class="scholar-card">
+            <img class="scholar-photo" src="https://upload.wikimedia.org/wikipedia/commons/4/44/Barry_Schwartz.jpg" alt="Barry Schwartz" />
+            <div class="scholar-info">
+              <div class="scholar-name">Barry Schwartz</div>
+              <div class="scholar-title">미국 심리학자 &middot; Swarthmore College 교수</div>
+            </div>
+          </div>
+          <div class="concept-quote">
+            <span class="concept-badge">&#128214; 선택의 역설 (2004)</span>
+            <span class="concept-desc">"선택지가 <span class="hl">많을수록</span> 만족도는 떨어지고, 결정은 더 어려워진다"</span>
+          </div>
+        </div>
+        <div class="common-problem">
+          기존 앱들의 공통 문제: 선택지를 <span class="accent">줄여주지 않는다</span>
+        </div>
+      </div>
+      <div class="slide-number">3 / 7</div>
+    </section>
+
+    <!-- 4: 인사이트 (Before/After) -->
+    <section class="slide" data-slide="3">
+      <span class="team-badge">PFC Technologies &middot; UNICORN DAY 2026</span>
+      <h1 class="slide-title">&#128161; <span class="accent">우리의 인사이트</span></h1>
+      <div class="insight-story" style="margin-bottom: 36px;">
+        <div class="story-beat">
+          <span class="beat-icon">&#129514;</span>
+          <span class="beat-text">팀원들에게 실험해봤다. "뭐 먹을래?" 대신 음식 사진을 <span class="hl">하나씩</span> 보여줬다</span>
+        </div>
+        <div class="story-beat">
+          <span class="beat-icon">&#9889;</span>
+          <span class="beat-text">결과: <span class="hl">즉시</span> "이거 좋아요" / "이건 아니에요" 반응이 나왔다</span>
+        </div>
+      </div>
+      <div class="before-after">
+        <div class="ba-box before">
+          <div class="ba-label">&#10060; 기존 방식</div>
+          <div class="ba-emoji">&#128203;</div>
+          <div class="ba-content">"한식? 중식? 일식? 양식?"<br/>&#8594; 선택지 나열 &#8594; <span class="hl">결정 불가</span></div>
+        </div>
+        <div class="ba-box after">
+          <div class="ba-label">&#9989; 우리의 방식</div>
+          <div class="ba-emoji">&#128070;</div>
+          <div class="ba-content">"이거 어때?" 사진 한 장<br/>&#8594; Yes or No &#8594; <span class="hl">즉시 결정</span></div>
+        </div>
+      </div>
+      <div class="slide-number">4 / 7</div>
+    </section>
+
+    <!-- 5: 기능 소개 -->
+    <section class="slide" data-slide="4">
+      <span class="team-badge">PFC Technologies &middot; UNICORN DAY 2026</span>
+      <h1 class="slide-title">&#10024; <span class="accent">오늘뭐먹</span> 핵심 기능</h1>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feat-icon">&#128070;</div>
+          <h3>스와이프 선택</h3>
+          <p>음식 사진을 하나씩 보여주고, 좌우 스와이프로 Yes/No. 고민할 틈을 주지 않는다.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">&#128248;</div>
+          <h3>시각 정보 극대화</h3>
+          <p>텍스트 목록 대신 실제 음식 사진. 보는 순간 먹고 싶은지 아닌지 바로 판단.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">&#9889;</div>
+          <h3>30초 안에 결정</h3>
+          <p>선택 장애 없이 스와이프 몇 번이면 오늘의 점심이 정해진다.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">&#128205;</div>
+          <h3>주변 맛집 연동</h3>
+          <p>선택한 메뉴 기반으로 근처 식당을 바로 추천. 결정부터 이동까지 한 번에.</p>
+        </div>
+      </div>
+      <div class="slide-number">5 / 7</div>
+    </section>
+
+    <!-- 6: 데모 -->
+    <section class="slide" data-slide="5">
+      <span class="team-badge">PFC Technologies &middot; UNICORN DAY 2026</span>
+      <h1 class="slide-title">&#128241; <span class="accent">데모</span></h1>
+      <div class="demo-center">
+        <div class="demo-phone">
+          <div class="food-emoji">&#127836;</div>
+          <div class="food-name">베트남 쌀국수</div>
+          <div class="swipe-hint">&larr; 스와이프하여 선택 &rarr;</div>
+          <div class="swipe-arrows">
+            <span class="swipe-no">&#10005; 패스</span>
+            <span class="swipe-yes">&#9829; 먹자</span>
+          </div>
+        </div>
+        <div class="demo-caption">스와이프 한 번으로 오늘의 점심 결정</div>
+      </div>
+      <div class="slide-number">6 / 7</div>
+    </section>
+
+    <!-- 7: Kiro 활용법 -->
+    <section class="slide" data-slide="6">
+      <span class="team-badge">PFC Technologies &middot; UNICORN DAY 2026</span>
+      <div class="kiro-header">
+        <h1 class="slide-title">&#128736;&#65039; <span class="accent-kiro">Kiro</span> 활용법</h1>
+        <div class="kiro-logo">&#10022; Kiro</div>
+      </div>
+      <div class="kiro-cards">
+        <div class="kiro-card">
+          <div class="card-icon">&#129517;</div>
+          <h3>Steering &amp; Skills</h3>
+          <p>프로젝트 컨벤션과 기술 스택을 Steering으로 설정. Skills로 반복 워크플로우를 자동화하여 일관된 코드 품질 유지.</p>
+          <div class="card-tag">프로젝트 컨텍스트 관리</div>
+        </div>
+        <div class="kiro-card">
+          <div class="card-icon">&#128260;</div>
+          <h3>Ralph Orchestrator</h3>
+          <p>LLM은 컨텍스트 윈도우가 커질수록 성능이 저하된다. Ralph로 태스크마다 컨텍스트를 초기화하여 항상 최적의 성능으로 코드 생성.</p>
+          <div class="card-tag">컨텍스트 초기화 &amp; 자율 실행</div>
+        </div>
+        <div class="kiro-card">
+          <div class="card-icon">&#128203;</div>
+          <h3>Spec 기반 개발</h3>
+          <p>요구사항 &rarr; 설계 &rarr; 태스크를 체계적으로 관리. 이 PPT 자체도 Kiro의 Spec 기능으로 설계하고 구현.</p>
+          <div class="card-tag">이 발표자료 = Kiro Spec 산출물</div>
+        </div>
+      </div>
+      <div class="kiro-benefit">
+        세 가지 도구를 <span class="accent">활용</span>하여 해커톤 3시간 안에 아이디어부터 완성까지
+      </div>
+      <div class="slide-number">7 / 7</div>
+    </section>
+
+  </div>
+
+  <div class="nav-hint">&larr; &rarr; 화살표 키 또는 클릭으로 이동</div>
+
+  <script>
+    const SlideNavigator = {
+      currentIndex: 0, totalSlides: 7, isAnimating: false,
+      next() { if (this.currentIndex < this.totalSlides - 1 && !this.isAnimating) this.goTo(this.currentIndex + 1); },
+      prev() { if (this.currentIndex > 0 && !this.isAnimating) this.goTo(this.currentIndex - 1); },
+      goTo(index) {
+        if (index < 0 || index >= this.totalSlides || index === this.currentIndex || this.isAnimating) return;
+        this.isAnimating = true;
+        const slides = document.querySelectorAll('.slide');
+        slides[this.currentIndex].classList.remove('active');
+        slides[index].classList.add('active');
+        this.currentIndex = index;
+        setTimeout(() => { this.isAnimating = false; }, 400);
+      }
+    };
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); SlideNavigator.next(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); SlideNavigator.prev(); }
+    });
+    document.querySelector('.slide-deck').addEventListener('click', () => SlideNavigator.next());
+  </script>
+</body>
+</html>
