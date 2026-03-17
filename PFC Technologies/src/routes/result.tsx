@@ -34,7 +34,7 @@ function Result() {
             ?.querySelector<HTMLDivElement>('[data-fallback]')
             ?.classList.remove('hidden')
           setTimeout(fireConfetti, 500)
-        }}}
+        }}
         className="mb-6 aspect-[3/4] w-full max-w-xs rounded-2xl object-cover"
       />
       <div
