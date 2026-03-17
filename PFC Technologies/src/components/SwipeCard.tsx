@@ -1,13 +1,8 @@
 import { useState } from 'react'
 import { useSwipeGesture } from '../hooks/useSwipeGesture'
+import type { Restaurant } from '../server/restaurants'
 
-export interface Restaurant {
-  id: number
-  name: string
-  category: string
-  menu: string[]
-  imageUrl: string
-}
+export type { Restaurant }
 
 interface SwipeCardProps {
   restaurant: Restaurant

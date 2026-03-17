@@ -2,8 +2,8 @@ import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Heart, X, RotateCcw } from "lucide-react";
 import SwipeCard from "../components/SwipeCard";
-import type { Restaurant } from "../components/SwipeCard";
-import data from "../data/restaurants.json";
+import type { Restaurant } from "../server/restaurants";
+import { getRestaurants } from "../server/restaurants";
 
 declare module "@tanstack/history" {
   interface HistoryState {
@@ -11,7 +11,10 @@ declare module "@tanstack/history" {
   }
 }
 
-export const Route = createFileRoute("/swipe")({ component: Swipe });
+export const Route = createFileRoute("/swipe")({
+  loader: () => getRestaurants(),
+  component: Swipe,
+});
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -24,7 +27,8 @@ function shuffle<T>(arr: T[]): T[] {
 
 function Swipe() {
   const navigate = useNavigate();
-  const [deck, setDeck] = useState(() => shuffle(data as Restaurant[]));
+  const data = Route.useLoaderData();
+  const [deck, setDeck] = useState(() => shuffle(data));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [empty, setEmpty] = useState(false);
 
@@ -46,7 +50,7 @@ function Swipe() {
   }
 
   function restart() {
-    setDeck(shuffle(data as Restaurant[]));
+    setDeck(shuffle(data));
     setCurrentIndex(0);
     setEmpty(false);
   }
