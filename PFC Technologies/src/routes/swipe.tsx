@@ -29,7 +29,6 @@ function Swipe() {
   const [empty, setEmpty] = useState(false);
 
   const current = deck[currentIndex];
-  const remaining = deck.length - currentIndex;
 
   function handleSwipe(direction: "left" | "right") {
     if (direction === "right") {
@@ -74,10 +73,6 @@ function Swipe() {
 
   return (
     <div className="flex flex-1 flex-col px-4 py-4">
-      <p className="mb-3 text-center text-sm text-[var(--sea-ink-soft)]">
-        {remaining}곳 남음
-      </p>
-
       {current && (
         <SwipeCard
           key={`${currentIndex}-${current.name}`}
