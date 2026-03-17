@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { createFileRoute, useLocation, useNavigate } from '@tanstack/react-router'
 import { RotateCcw } from 'lucide-react'
 import confetti from 'canvas-confetti'
@@ -13,8 +13,11 @@ function Result() {
 
   useEffect(() => {
     if (!restaurant) { navigate({ to: '/' }); return }
-    confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } })
   }, [restaurant, navigate])
+
+  const fireConfetti = useCallback(() => {
+    confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } })
+  }, [])
 
   if (!restaurant) return null
 
@@ -24,12 +27,14 @@ function Result() {
         src={restaurant.imageUrl}
         alt={restaurant.name}
         draggable={false}
+        onLoad={() => setTimeout(fireConfetti, 500)}
         onError={(e) => {
           e.currentTarget.style.display = 'none'
           e.currentTarget.parentElement
             ?.querySelector<HTMLDivElement>('[data-fallback]')
             ?.classList.remove('hidden')
-        }}
+          setTimeout(fireConfetti, 500)
+        }}}
         className="mb-6 aspect-[3/4] w-full max-w-xs rounded-2xl object-cover"
       />
       <div
