@@ -1,0 +1,73 @@
+# Ralph Orchestrator — 뭐먹지 (PFC Technologies)
+# Run: ralph run -p "Issue 1: 프로젝트 쉘 + 모바일 레이아웃 스캐폴딩"
+
+cli:
+  backend: "kiro"
+
+event_loop:
+  completion_promise: "LOOP_COMPLETE"
+  starting_event: "task.start"
+  max_iterations: 50
+  max_runtime_seconds: 7200
+  checkpoint_interval: 3
+
+core:
+  specs_dir: "./PFC Technologies/issues/"
+  guardrails:
+    - "작업 디렉토리는 PFC Technologies/ 하위에서만 작업한다"
+    - "TanStack Start + React 19 + TanStack Router + Tailwind CSS v4 스택을 사용한다"
+    - "모바일 우선 레이아웃: max-w-md mx-auto 컨테이너 유지"
+    - "아이콘은 lucide-react만 사용, 이모지를 UI 아이콘으로 쓰지 않는다"
+    - "음식점 데이터는 src/data/restaurants.json에서 관리한다"
+    - "기존 코드 패턴과 컨벤션을 따른다"
+    - "변경 전 기존 파일을 반드시 읽고 구조를 파악한다"
+
+hats:
+  planner:
+    name: "Planner"
+    triggers: ["task.start", "review.changes_requested"]
+    publishes: ["plan.ready"]
+    instructions: |
+      PRD(PFC Technologies/PRD.md)와 이슈 파일(PFC Technologies/issues/)을 읽고 구현 계획을 세운다.
+
+      1. 현재 태스크에 해당하는 이슈 파일의 acceptance criteria를 확인한다
+      2. 기존 코드베이스(PFC Technologies/src/)를 탐색하여 수정/생성할 파일을 파악한다
+      3. 의존성(Blocked by)이 충족되었는지 확인한다
+      4. 파일 단위의 구체적인 구현 계획을 scratchpad에 작성한다
+
+      review.changes_requested로 돌아온 경우, 리뷰어 피드백을 반영하여 계획을 수정한다.
+
+  builder:
+    name: "Builder"
+    triggers: ["plan.ready"]
+    publishes: ["build.done", "build.blocked"]
+    instructions: |
+      Planner의 계획에 따라 코드를 구현한다.
+
+      규칙:
+      - PFC Technologies/ 디렉토리 안에서만 파일을 생성/수정한다
+      - 최소한의 코드로 acceptance criteria를 충족한다
+      - Tailwind CSS v4 유틸리티 클래스를 사용한다
+      - 컴포넌트는 src/components/, 라우트는 src/routes/에 배치한다
+      - 서버 함수는 TanStack Start server function으로 구현한다
+
+      구현 완료 후 build.done을 발행한다.
+      외부 의존성이나 API 키 등 사람의 개입이 필요하면 build.blocked를 발행한다.
+
+  reviewer:
+    name: "Reviewer"
+    triggers: ["build.done"]
+    publishes: ["review.approved", "review.changes_requested"]
+    instructions: |
+      Builder의 구현을 이슈의 acceptance criteria 기준으로 검증한다.
+
+      체크리스트:
+      1. 이슈 파일의 모든 acceptance criteria가 충족되는가
+      2. TypeScript 타입 에러가 없는가 (npx tsc --noEmit)
+      3. 모바일 우선 레이아웃(max-w-md mx-auto)이 유지되는가
+      4. 이모지가 UI 아이콘으로 사용되지 않았는가
+      5. API 키가 클라이언트에 노출되지 않는가
+      6. 기존 코드 패턴과 일관성이 있는가
+
+      모두 통과하면 review.approved를 발행하고 LOOP_COMPLETE를 출력한다.
+      문제가 있으면 구체적인 피드백과 함께 review.changes_requested를 발행한다.
